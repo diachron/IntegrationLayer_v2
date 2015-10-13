@@ -54,11 +54,6 @@
             <artifactId>archive-data-mapping</artifactId>
             <version>1.0.1</version>
         </dependency>       
-       <!-- <dependency>
-            <groupId>diachron-athena</groupId>
-            <artifactId>archive-system</artifactId>
-            <version>1.0.1</version>
-        </dependency> -->
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>
@@ -118,201 +113,126 @@
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-client</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-openwire-legacy</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-camel</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jaas</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-broker</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-console</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-shiro</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-spring</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-pool</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jms-pool</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-amqp</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-http</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-mqtt</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-stomp</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-kahadb-store</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jdbc-store</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-leveldb-store</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq.protobuf</groupId>
         <artifactId>activemq-protobuf</artifactId>
         <version>1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.fusesource.hawtbuf</groupId>
         <artifactId>hawtbuf</artifactId>
         <version>1.10</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.jasypt</groupId>
         <artifactId>jasypt</artifactId>
         <version>1.9.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jms_1.1_spec</artifactId>
         <version>1.1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
         <version>1.0.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-annotation_1.0_spec</artifactId>
         <version>1.1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.7.5</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
         <version>1.7.5</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>log4j</groupId>
@@ -332,18 +252,6 @@
             <artifactId>owlapi-api</artifactId>
             <version>3.4.5</version>
     </dependency>    
-    <!--
-    <dependency>
-        <groupId>com.sun.jersey</groupId>
-        <artifactId>jersey-server</artifactId>
-        <version>1.6</version>
-    </dependency>
-    <dependency>
-        <groupId>com.sun.jersey</groupId>
-        <artifactId>jersey-client</artifactId>
-        <version>1.6</version>
-    </dependency>
-    -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
@@ -390,35 +298,6 @@
             <artifactId>jackson-xc</artifactId>
             <version>1.9.13</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-arq</artifactId>
-            <version>2.11.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-core</artifactId>
-            <version>2.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-iri</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-sdb</artifactId>
-            <version>1.4.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-fuseki</artifactId>
-            <version>1.1.0</version>
-        </dependency>  
-        -->  
   <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
