@@ -41,8 +41,9 @@ public class ArchivingService {
         String query = null;
         
         query = inputMessage.getQuery();
-        if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
-        {
+
+        //if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
+        //{
             DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
             jsonOutputMessage = dataAccessModuleBase.executeSPARQLArchiveCall(query,
                                                                                   "SELECT",
@@ -51,7 +52,7 @@ public class ArchivingService {
             System.out.println(jsonOutputMessage);
                 
             cache.put(query, jsonOutputMessage);
-        }
+        //}
             
         return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
     }
