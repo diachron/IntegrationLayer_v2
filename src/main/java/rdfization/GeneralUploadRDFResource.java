@@ -5,6 +5,7 @@
  */
 package rdfization;
 
+import java.io.FileReader;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -27,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -36,6 +38,7 @@ import org.athena.imis.diachron.archive.datamapping.OntologyConverter;
 import org.athena.imis.diachron.archive.datamapping.MultidimensionalConverter;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.diachron.detection.exploit.ArchiveExploiter;
 
 
 @Path("GeneralUploadRDF")
@@ -64,16 +67,17 @@ public class GeneralUploadRDFResource
         JSONObject jsonOutputMessage = new JSONObject();        
         PropertiesManager propertiesManager = PropertiesManager.getPropertiesManager();
         String serverLocationFolder = propertiesManager.getPropertyValue("ServerTempFolder");
+        System.err.println(" ---- " + serverLocationFolder);
         String inPath  = serverLocationFolder + contentDispositionHeader.getFileName();
         String outPath = serverLocationFolder + "dian" + contentDispositionHeader.getFileName();
-        String diachronicURL = new String("http://www.diachron-fp7.eu/resource/diachronicDataset/" + datasetName + "/" + label);
+        String diachronicURL = null;
         Response responseMessage = null;
         Status returnStatus = null;
         
         try
         {
             //createDiachronicDataset("test", "098F6BCD4621D373CADE4E832627B4F6", "cre");
-            if(createDiachronicDataset(datasetName, label, creator))
+            if((diachronicURL=createDiachronicDataset(datasetName, label, creator))!=null)
             {
                 FileManagement.storeFile(fileInputStream, inPath);
                 
@@ -97,6 +101,7 @@ public class GeneralUploadRDFResource
                 FileInputStream fis2 = new FileInputStream(outPath);
                 System.err.println(" ---------" + outPath + " " + diachronicURL);                
                 System.err.println(" ---------" + (fis2==null) + " " + diachronicURL);
+
                 
                 StoreFactory.createDataLoader().loadData(fis2,
                                             diachronicURL,
@@ -107,9 +112,16 @@ public class GeneralUploadRDFResource
                 FileManagement.deleteFile(inPath);
                 FileManagement.deleteFile(outPath);
                 
+                Properties chDet = new Properties();
+                InputStream input = this.getClass().getClassLoader().getResourceAsStream("diachron.properties");                
+                chDet.load(input);
+
+                ArchiveExploiter expl = new ArchiveExploiter(chDet);
+                expl.addDiachronicDataset(diachronicURL, datasetName);
+                                
                 jsonOutputMessage.put("Status", diachronicURL + " is stored");
                 returnStatus = Response.Status.OK;
-                
+                System.err.println("added to changes ontology as well");
                 System.err.println(jsonOutputMessage.toString());
             }
             else 
@@ -134,7 +146,7 @@ public class GeneralUploadRDFResource
         return Response.status(returnStatus).entity(jsonOutputMessage.toString()).build();
     }
 
-    private boolean createDiachronicDataset(String datasetName, String label, String creator)
+    private String createDiachronicDataset(String datasetName, String label, String creator)
     throws JSONException
     {
         JSONObject jsonOutputMessage = null;
@@ -156,7 +168,7 @@ public class GeneralUploadRDFResource
         jsonOutputMessage = new JSONObject((String)response.getEntity(String.class));
         
         System.err.println(jsonOutputMessage.toString());
-        return jsonOutputMessage.getBoolean("success");
+        return jsonOutputMessage.getString("data");
     } 
     
 }
