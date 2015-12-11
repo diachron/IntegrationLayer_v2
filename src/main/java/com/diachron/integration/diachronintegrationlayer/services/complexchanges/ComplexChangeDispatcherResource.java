@@ -63,8 +63,6 @@ public class ComplexChangeDispatcherResource
         responseMessage.put("id", dispatchID);
         
         return Response.status(Status.OK).entity(responseMessage.toString()).build();
-        //return "{ \"Status\": \"Dispatched\", \"id\":\"" + dispatchID +"\"}";
     }
-
 
 }

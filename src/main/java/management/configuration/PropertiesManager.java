@@ -49,4 +49,9 @@ public final class PropertiesManager
     {
         return prop.getProperty(key);
     }
+    
+    public Properties getProperties()
+    {
+        return prop;
+    }
 }

@@ -33,6 +33,7 @@ public class ApplicationConfig extends Application {
         resources.add(com.diachron.integration.diachronintegrationlayer.services.archiving.DeirifyResource.class);
         resources.add(com.diachron.integration.diachronintegrationlayer.services.complexchanges.ComplexChangeDispatcherResource.class);
         resources.add(com.diachron.integration.diachronintegrationlayer.services.complexchanges.ComplexChangeHandler.class);
+        resources.add(com.diachron.integration.diachronintegrationlayer.services.complexchanges.ComplexChangesManagement.class);
         resources.add(com.diachron.integration.diachronintegrationlayer.services.complexchanges.DatasetResource.class);
         resources.add(com.diachron.integration.diachronintegrationlayer.services.complexchanges.UnqueueComplexChange.class);
         resources.add(com.diachron.integration.diachronintegrationlayer.services.crawling.DispatcherResource.class);

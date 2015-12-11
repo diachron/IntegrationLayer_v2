@@ -80,7 +80,7 @@ public class UnqueueComplexChange
                     PrintWriter out = serv.getWriter();
                     String text = textMessage.getText();
                     out.println(text);
-                    System.out.println(" LOOK AT THIS VALUE: " + text);
+                    //System.out.println(" LOOK AT THIS VALUE: " + text);
                     //out.flush();
                     out.close();
                 } catch (IOException ex) {
