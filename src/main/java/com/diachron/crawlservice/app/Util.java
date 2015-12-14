@@ -49,6 +49,13 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import rdfization.DiachronizationModule;
 
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
 public final class Util
 {
     private final Properties prop = new Properties();
@@ -279,9 +286,9 @@ public final class Util
             int i = 0;
             for (ArchiveRecord r : ar) {
                 // The header file contains information such as the type of record, size, creation time, and URL
-                System.out.println(r.getHeader());
-                System.out.println(r.getHeader().getUrl());
-                System.out.println();
+                //System.out.println(r.getHeader());
+                //System.out.println(r.getHeader().getUrl());
+                //System.out.println();
 
                 // If we want to read the contents of the record, we can use the ArchiveRecord as an InputStream
                 // Create a byte array that is as long as the record's stated length
@@ -289,24 +296,36 @@ public final class Util
 
                 // Why don't we convert it to a string and print the start of it? Let's hope it's text!
                 String content = new String(rawData);
-                System.out.println(content.substring(0, Math.min(500, content.length())));
-                System.out.println((content.length() > 500 ? "..." : ""));
+                //System.out.println(content.substring(0, Math.min(500, content.length())));
+                //System.out.println((content.length() > 500 ? "..." : ""));
 
+                Document doc = Jsoup.parse(content);
+                //System.err.println(doc.body().toString());
+                Elements el = doc.select("a");
+                
+                for(int j=0;j<el.size();j++)
+                {
+                    System.err.println(el.get(j));
+                }
+                
+                /*
                 //get only HTTP info
                 if (content.contains("HTTP/1.1 200 OK")) {
 
                     JSONObject pageBasics = new JSONObject();
-
+                    
                     pageBasics.put("headerURL", r.getHeader().getUrl());
                     System.out.println("headerURL " + r.getHeader().getUrl());
 
                     pageBasics.put("title", getTextBetweenTags(content, "title"));
                     pageBasics.put("firstParagraph", getTextBetweenTags(content, "p"));
-
+                            
                     json4RDFizing.put(pageBasics);
-
+                            
+                    
+                    System.out.println("TEXT " + getTextBetweenTags(content, "href"));
                 }
-
+*/
                 // Pretty printing to make the output more readable
                 System.out.println("=-=-=-=-=-=-=-=-=");
                 if (i++ > 4) {
@@ -318,9 +337,12 @@ public final class Util
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
+        }
+       /* catch (JSONException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } 
+*/
+        finally {
             try {
                 is.close();
             } catch (IOException ex) {
@@ -332,6 +354,7 @@ public final class Util
     }
 
     public static String getTextBetweenTags(String content, String tag) {
+        //System.err.println(" ----- BOOM " + content);
         final Pattern pattern = Pattern.compile("<" + tag + ">(.+?)</" + tag + ">");
         final List<String> tagValues = new ArrayList<String>();
         final Matcher matcher = pattern.matcher(content);
@@ -471,15 +494,17 @@ public final class Util
             }
 
         }
-
+        
+        /*
         path = PropertiesManager.getPropertiesManager().getPropertyValue("TMP_FOLDER_CRAWL")
                                   + crawlid + "RDFized."
                                   + PropertiesManager.getPropertiesManager().getPropertyValue("TMP_SERIALIZATION_RDF_FILEEXT");
         
+        path= null;
         System.out.println(" ---------" + path);
         
         storeRDFizedWarcFile(model, path);
-                                  
+          */                        
         
         return true;
     }
@@ -502,12 +527,14 @@ public final class Util
 //            System.out.println("url to download1: " + warcsArray.getString(i));
 //
 //        }
-        //String warcfile = "/home/panos/Downloads/608c4b6b-42e7-40c1-a333-2b22c6f7b980-crawl-20150708110508-00001-c359dfd0-ce37-4f1c-a5d0-70c76e02f077.warc.gz";
-        //System.out.println(RDFizeWarcFile(warcfile));
+        String warcfile = "/home/panos/Downloads/ebi_sample.warc.gz";
         
-        String warcrdfFile = "/home/panos/Downloads/a374b6db-a50f-4295-9e09-6234b246246fRDFized.rdf";
-        DiachronizationModule conv = new DiachronizationModule();
-        conv.uploadDiachronizeAndStore("test", warcrdfFile, "/home/panos/Downloads/test.rdf", "label", "cre","ontology");
+        System.err.println("DATA:" + RDFizeWarcFile(warcfile));
+        
+        generateRDFModel(RDFizeWarcFile(warcfile), "id12");
+        //String warcrdfFile = "/home/panos/Downloads/a374b6db-a50f-4295-9e09-6234b246246fRDFized.rdf";
+        //DiachronizationModule conv = new DiachronizationModule();
+        //conv.uploadDiachronizeAndStore("test", warcrdfFile, "/home/panos/Downloads/test.rdf", "label", "cre","ontology");
         
     }
 

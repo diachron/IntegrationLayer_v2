@@ -5,7 +5,6 @@
  */
 package rdfization;
 
-import java.io.FileReader;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -22,12 +21,9 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import com.sun.jersey.multipart.FormDataParam;
 import io.FileManagement;
-import java.io.File;
 import javax.ws.rs.core.MediaType;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MultivaluedMap;
