@@ -57,7 +57,8 @@ public class GeneralUploadRDFResource
                 @FormDataParam("datasetName") String datasetName,
                 @FormDataParam("label") String label,
                 @FormDataParam("creator") String creator,
-                @FormDataParam("converterType") String converterType)
+                @FormDataParam("converterType") String converterType,
+                @FormDataParam("reasoner") String reasoner)
     {
         FileInputStream fis = null;
         JSONObject jsonOutputMessage = new JSONObject();        
@@ -82,8 +83,9 @@ public class GeneralUploadRDFResource
                 
                 if(converterType.equals("ontology"))
                 {
-                    OntologyConverter converter = new OntologyConverter();                                   
-                    converter.convert(fis, fos, datasetName);
+                    OntologyConverter converter = new OntologyConverter();
+                    converter.convert(fis, fos,datasetName, reasoner);
+                    //converter.convert(fis, fos, datasetName);
                 }
                 else if(converterType.equals("multidimensional"))
                 {
@@ -98,7 +100,6 @@ public class GeneralUploadRDFResource
                 System.err.println(" ---------" + outPath + " " + diachronicURL);                
                 System.err.println(" ---------" + (fis2==null) + " " + diachronicURL);
 
-                
                 StoreFactory.createDataLoader().loadData(fis2,
                                             diachronicURL,
                                             "RDF/XML");
@@ -166,5 +167,58 @@ public class GeneralUploadRDFResource
         System.err.println(jsonOutputMessage.toString());
         return jsonOutputMessage.getString("data");
     } 
-    
+
+    public static void main(String[] args)
+    {
+        FileInputStream fis = null;
+        String inPath  = new String("/home/panos/Downloads/dp/maires.2012.ttl");
+        String outPath = new String("/home/panos/Downloads/dp/maires.2012.ttl.test");
+        String diachronicURL = null;
+        String converterType = new String("multidimensional");
+        GeneralUploadRDFResource g = new GeneralUploadRDFResource();
+        String dataset = new String("multitest");
+        String reasoner = new String("hermit");
+        
+        try
+        {
+            //if((diachronicURL=g.createDiachronicDataset(dataset, "multi", "peter"))!=null)
+            //{
+                //FileManagement.storeFile(fileInputStream, inPath);
+                
+                fis = new FileInputStream(inPath);
+                FileOutputStream fos = new FileOutputStream(outPath);
+                
+                if(converterType.equals("ontology"))
+                {
+                    OntologyConverter converter = new OntologyConverter();                                   
+                    converter.convert(fis, fos, dataset, reasoner);
+                }
+                else if(converterType.equals("multidimensional"))
+                {
+                    MultidimensionalConverter converter = new MultidimensionalConverter();
+                    converter.convert(fis, fos, "rdf", dataset);
+                }
+
+                fis.close();
+                fos.close();            
+
+                /*
+                FileInputStream fis2 = new FileInputStream(outPath);
+                System.err.println(" ---------" + outPath + " " + diachronicURL);                
+                System.err.println(" ---------" + (fis2==null) + " " + diachronicURL);
+                
+                StoreFactory.createDataLoader().loadData(fis2,
+                                            diachronicURL,
+                                            "RDF/XML");
+                
+                fis2.close();
+                */
+                //FileManagement.deleteFile(inPath);
+                //FileManagement.deleteFile(outPath);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }        
+    }
 }
