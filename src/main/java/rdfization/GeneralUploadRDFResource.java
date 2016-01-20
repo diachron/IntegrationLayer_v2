@@ -35,6 +35,8 @@ import org.athena.imis.diachron.archive.datamapping.MultidimensionalConverter;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.diachron.detection.exploit.ArchiveExploiter;
+import java.net.URI;
+import java.util.*;
 
 
 @Path("GeneralUploadRDF")
@@ -58,7 +60,9 @@ public class GeneralUploadRDFResource
                 @FormDataParam("label") String label,
                 @FormDataParam("creator") String creator,
                 @FormDataParam("converterType") String converterType,
-                @FormDataParam("reasoner") String reasoner)
+                @FormDataParam("reasoner") String reasoner,
+                @FormDataParam("filters") String filtersString,
+                @FormDataParam("format") String format)
     {
         FileInputStream fis = null;
         JSONObject jsonOutputMessage = new JSONObject();        
@@ -70,9 +74,12 @@ public class GeneralUploadRDFResource
         String diachronicURL = null;
         Response responseMessage = null;
         Status returnStatus = null;
+        Collection<URI> filters = null;
+        List l = new ArrayList();
         
         try
         {
+            
             //createDiachronicDataset("test", "098F6BCD4621D373CADE4E832627B4F6", "cre");
             if((diachronicURL=createDiachronicDataset(datasetName, label, creator))!=null)
             {
@@ -84,7 +91,16 @@ public class GeneralUploadRDFResource
                 if(converterType.equals("ontology"))
                 {
                     OntologyConverter converter = new OntologyConverter();
-                    converter.convert(fis, fos,datasetName, reasoner);
+                    
+                    if(!filtersString.equals(""))
+                    {
+                        l = new ArrayList<String>(Arrays.asList(filtersString.split(",")));
+                        converter.convert(fis, fos,datasetName, l, reasoner);                    
+                    }
+                    else
+                    {
+                        converter.convert(fis, fos,datasetName, reasoner);
+                    }
                     //converter.convert(fis, fos, datasetName);
                 }
                 else if(converterType.equals("multidimensional"))
@@ -102,7 +118,7 @@ public class GeneralUploadRDFResource
 
                 StoreFactory.createDataLoader().loadData(fis2,
                                             diachronicURL,
-                                            "RDF/XML");
+                                            format);
                 
                 fis2.close();
                 
@@ -118,8 +134,17 @@ public class GeneralUploadRDFResource
                                 
                 jsonOutputMessage.put("Status", diachronicURL + " is stored");
                 returnStatus = Response.Status.OK;
-                System.err.println("added to changes ontology as well");
-                System.err.println(jsonOutputMessage.toString());
+                //System.err.println("added to changes ontology as well");
+                //System.err.println(jsonOutputMessage.toString());
+                
+                    if(!filtersString.equals(""))
+                    {
+                        System.err.println("Filters on");
+                    }
+                    else
+                    {
+                        System.err.println("Filters off");                        
+                    }                
             }
             else 
             {
