@@ -101,7 +101,6 @@ public class GeneralUploadRDFResource
                     {
                         converter.convert(fis, fos,datasetName, reasoner);
                     }
-                    //converter.convert(fis, fos, datasetName);
                 }
                 else if(converterType.equals("multidimensional"))
                 {
@@ -134,17 +133,8 @@ public class GeneralUploadRDFResource
                                 
                 jsonOutputMessage.put("Status", diachronicURL + " is stored");
                 returnStatus = Response.Status.OK;
-                //System.err.println("added to changes ontology as well");
-                //System.err.println(jsonOutputMessage.toString());
-                
-                    if(!filtersString.equals(""))
-                    {
-                        System.err.println("Filters on");
-                    }
-                    else
-                    {
-                        System.err.println("Filters off");                        
-                    }                
+
+             
             }
             else 
             {
