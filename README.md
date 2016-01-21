@@ -1,4 +1,4 @@
-Instruction for the config file of the integrated platform
+Instruction for the configuration file of the integrated platform:
 
 Create in $WILDFLY_HOME/modules/ 3 folders one inside of the other as "/diachron/configuration/main/".
 
@@ -40,14 +40,14 @@ REMOTE_CRAWLER_URL = http://diachron.hanzoarchives.com/warcs/
 REMOTE_CRAWLER_URL_CRAWL_INIT = http://diachron.hanzoarchives.com/crawl
 REMOTE_CRAWLER_URL_CRAWL = http://diachron.hanzoarchives.com/crawl/
 REMOTE_CRAWLER_USERNAME = diachron
-REMOTE_CRAWLER_PASS = 7nD9dNGshTtficn
+REMOTE_CRAWLER_PASS =
 TMP_FOLDER_CRAWL = /home/diachron/temp/
 TMP_SERIALIZATION_RDF_FORMAT  = RDF/XML
 TMP_SERIALIZATION_RDF_FILEEXT = rdf
 
 Repository_IP=192.168.3.8
-Repository_Username=dba
-Repository_Password=dba
+Repository_Username=
+Repository_Password=
 Repository_Port=1111
 Dataset_URI = http://www.ebi.ac.uk/efo/
 Simple_Changes_Folder=/home/diachron/diachron_v2/detection_repair_maven/sparql/ontological/simple_changes/with_assoc
@@ -56,4 +56,21 @@ Validation_Dataset=http://repair/test
 Validation_Ontology=http://dbpedia.org/ontology/3.6
 
 Changes_Ontology_File = /home/diachron/detection_backend/input/changes_ontology/ontological/ChangesOntologySchema.n3
+```
+
+
+Also, a file located in /IntegrationLayer_v2/src/main/resources/virt-connection.properties needs to edited accordingly for your Virtuoso server.
+
+```
+virtuoso-username=
+virtuoso-pwd=
+virtuoso-host=127.0.0.1
+#default port
+virtuoso-port=1111
+#athena server
+#virtuoso-port=10011
+virtuoso-connection-pooling=true
+virtuoso-initial-pool=2
+virtuoso-max-pool=30
+virtuoso-bulk-load-path=/home/diachron/te
 ```

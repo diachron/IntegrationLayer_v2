@@ -35,6 +35,7 @@ import org.athena.imis.diachron.archive.datamapping.MultidimensionalConverter;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.diachron.detection.exploit.ArchiveExploiter;
+import org.athena.imis.diachron.archive.datamapping.RDFConverter;
 import java.net.URI;
 import java.util.*;
 
@@ -186,8 +187,8 @@ public class GeneralUploadRDFResource
     public static void main(String[] args)
     {
         FileInputStream fis = null;
-        String inPath  = new String("/home/panos/Downloads/dp/maires.2012.ttl");
-        String outPath = new String("/home/panos/Downloads/dp/maires.2012.ttl.test");
+        String inPath  = new String("/home/panos/Downloads/test/small_efo.rdf");
+            String outPath = new String("/home/panos/Downloads/test/small_efo.rdf.sample");
         String diachronicURL = null;
         String converterType = new String("multidimensional");
         GeneralUploadRDFResource g = new GeneralUploadRDFResource();
@@ -199,7 +200,7 @@ public class GeneralUploadRDFResource
             //if((diachronicURL=g.createDiachronicDataset(dataset, "multi", "peter"))!=null)
             //{
                 //FileManagement.storeFile(fileInputStream, inPath);
-                
+                /*
                 fis = new FileInputStream(inPath);
                 FileOutputStream fos = new FileOutputStream(outPath);
                 
@@ -216,7 +217,16 @@ public class GeneralUploadRDFResource
 
                 fis.close();
                 fos.close();            
+*/
 
+                fis = new FileInputStream(inPath);
+                FileOutputStream fos = new FileOutputStream(outPath);
+            
+            
+                RDFConverter conv = new RDFConverter();
+                conv.convert(fis, fos, "testesttest", "rdf");
+                conv = null;
+                
                 /*
                 FileInputStream fis2 = new FileInputStream(outPath);
                 System.err.println(" ---------" + outPath + " " + diachronicURL);                

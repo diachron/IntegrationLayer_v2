@@ -47,7 +47,6 @@ import org.archive.io.warc.WARCReaderFactory;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import rdfization.DiachronizationModule;
 
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
