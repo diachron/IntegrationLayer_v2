@@ -10,11 +10,11 @@ public class TestQueryLib
     public static void main(String[] args) throws Exception 
     {
         Client client = Client.create();        
-        WebResource initRequest = client.resource("http://192.168.3.8:9090/DIACHRONIntegrationLayer/webresources/dataset/");
+        WebResource initRequest = client.resource("http://192.168.3.8:7090/DIACHRONIntegrationLayer/webresources/dataset/");
 
         System.out.println(initRequest.get(ClientResponse.class).getEntity(String.class));
         
-        initRequest = client.resource("http://192.168.3.8:9090/DIACHRONIntegrationLayer/webresources/dataset/version?id=http://www.diachron-fp7.eu/resource/diachronicDataset/test18/DF71DF92C31111F810A7D89BD2C2E35D");
+        initRequest = client.resource("http://192.168.3.8:7090/DIACHRONIntegrationLayer/webresources/dataset/version?id=http://www.diachron-fp7.eu/resource/diachronicDataset/test18/DF71DF92C31111F810A7D89BD2C2E35D");
 
         System.out.println(initRequest.get(ClientResponse.class).getEntity(String.class));        
 
