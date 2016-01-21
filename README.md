@@ -3,14 +3,14 @@ Instruction for the config file of the integrated platform
 Create in $WILDFLY_HOME/modules/ 3 folders one inside of the other as "/lindaAnalytics/configuration/main/".
 
 Inside "main" folder create module.xml file as follows:
-
+```
 <?xml version="1.0" encoding="UTF-8"?>  
   <module xmlns="urn:jboss:module:1.1" name="lindaAnalytics.configuration">  
       <resources>  
       <resource-root path="."/>  
       </resources>  
   </module>  
-
+```
 Inside "main" folder create diachron.properties file as follows (change adequately the properties):
 
 --------------------------------
