@@ -14,9 +14,7 @@ Inside "main" folder create module.xml file as follows:
 Inside "main" folder create diachron.properties file as follows (change adequately the properties):
 
 --------------------------------
-
-Resource addresses for Core Services
-
+```
 BaseServer                              = http://127.0.0.1:7090/DIACHRONIntegrationLayer/webresources
 ComputeQualityAssementResourceAddress   = http://localhost:8080/Luzzu/compute_quality
 ChangeDetectionResourceAddress          = http://192.168.3.8:8080/ForthMaven-1.0/diachron/change_detection
@@ -58,4 +56,4 @@ Validation_Dataset=http://repair/test
 Validation_Ontology=http://dbpedia.org/ontology/3.6
 
 Changes_Ontology_File = /home/diachron/detection_backend/input/changes_ontology/ontological/ChangesOntologySchema.n3
-
+```
