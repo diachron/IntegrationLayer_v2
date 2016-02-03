@@ -35,7 +35,7 @@ import org.athena.imis.diachron.archive.datamapping.MultidimensionalConverter;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.diachron.detection.exploit.ArchiveExploiter;
-import org.athena.imis.diachron.archive.datamapping.RDFConverter;
+import rdfization.RDFConverter;
 import java.net.URI;
 import java.util.*;
 
@@ -131,6 +131,7 @@ public class GeneralUploadRDFResource
 
                 ArchiveExploiter expl = new ArchiveExploiter(chDet);
                 expl.addDiachronicDataset(diachronicURL, datasetName);
+                //expl.addDiachronicDatasetVersion(diachronicURL, datasetName, null);
                                 
                 jsonOutputMessage.put("Status", diachronicURL + " is stored");
                 returnStatus = Response.Status.OK;
@@ -187,7 +188,7 @@ public class GeneralUploadRDFResource
     public static void main(String[] args)
     {
         FileInputStream fis = null;
-        String inPath  = new String("/home/panos/Downloads/test/small_efo.rdf");
+        String inPath  = new String("/home/panos/Downloads/test/small.rdf");
             String outPath = new String("/home/panos/Downloads/test/small_efo.rdf.sample");
         String diachronicURL = null;
         String converterType = new String("multidimensional");
