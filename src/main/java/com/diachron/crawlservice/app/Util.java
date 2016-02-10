@@ -47,12 +47,15 @@ import org.archive.io.warc.WARCReaderFactory;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import java.util.UUID;
+import java.io.PrintWriter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import rdfization.RDFConverter;
 
 
 public final class Util
@@ -274,8 +277,14 @@ public final class Util
 
     private static JSONArray RDFizeWarcFile(String warcfilepath) {
         JSONArray json4RDFizing = new JSONArray();
-        FileInputStream is = null;
+        FileInputStream is = null;        
+        FileInputStream fis = null;
+        String inPath  = new String("/home/panos/Downloads/test/small2.rdf");
+        String outPath = new String("/home/panos/Downloads/test/small_efo.rdf.sample");     
+                
         try {
+            PrintWriter pw = new PrintWriter(inPath);
+            
             String fileName = null;
             // Set up a local compressed WARC file for reading
             is = new FileInputStream(warcfilepath);
@@ -286,47 +295,40 @@ public final class Util
             for (ArchiveRecord r : ar) {
                 // The header file contains information such as the type of record, size, creation time, and URL
                 //System.out.println(r.getHeader());
-                //System.out.println(r.getHeader().getUrl());
-                //System.out.println();
-
-                // If we want to read the contents of the record, we can use the ArchiveRecord as an InputStream
-                // Create a byte array that is as long as the record's stated length
                 byte[] rawData = IOUtils.toByteArray(r, r.available());
-
-                // Why don't we convert it to a string and print the start of it? Let's hope it's text!
                 String content = new String(rawData);
-                //System.out.println(content.substring(0, Math.min(500, content.length())));
-                //System.out.println((content.length() > 500 ? "..." : ""));
-
                 Document doc = Jsoup.parse(content);
-                //System.err.println(doc.body().toString());
                 Elements el = doc.select("a");
                 
-                for(int j=0;j<el.size();j++)
+                if(el.size()>0)
                 {
-                    System.err.println(el.get(j));
-                }
-                
-                /*
-                //get only HTTP info
-                if (content.contains("HTTP/1.1 200 OK")) {
+                    pw.println("<rdf:RDF\n" +
+                                "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
+                                "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n" +
+                                "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">");
 
-                    JSONObject pageBasics = new JSONObject();
-                    
-                    pageBasics.put("headerURL", r.getHeader().getUrl());
-                    System.out.println("headerURL " + r.getHeader().getUrl());
+                    pw.println("<rdf:Description rdf:about=\"http://rand/" + UUID.randomUUID().toString() + "\">");
+                    System.err.println( " -- " + el.size());
 
-                    pageBasics.put("title", getTextBetweenTags(content, "title"));
-                    pageBasics.put("firstParagraph", getTextBetweenTags(content, "p"));
-                            
-                    json4RDFizing.put(pageBasics);
-                            
-                    
-                    System.out.println("TEXT " + getTextBetweenTags(content, "href"));
+
+                    for(int j=0;j<el.size();j++)
+                    {
+                        System.err.println( " -- " + el.get(j).attr("href"));                    
+                        pw.println("<rdfs:comment>" + el.get(j).attr("href") + "</rdfs:comment>");
+                        pw.flush();
+                    }
+
+                    pw.println("</rdf:Description></rdf:RDF>");
+                    pw.close();
+
+                    fis = new FileInputStream(inPath);
+                    FileOutputStream fos = new FileOutputStream(outPath);            
+
+                    RDFConverter conv = new RDFConverter();
+                    conv.convert(fis, fos, "testesttest", "rdf");
+                    conv = null;                               
                 }
-*/
-                // Pretty printing to make the output more readable
-                System.out.println("=-=-=-=-=-=-=-=-=");
+
                 if (i++ > 4) {
                     break;
                 }
@@ -337,10 +339,6 @@ public final class Util
         } catch (IOException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
-       /* catch (JSONException ex) {
-            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-*/
         finally {
             try {
                 is.close();
@@ -530,7 +528,7 @@ public final class Util
         
         System.err.println("DATA:" + RDFizeWarcFile(warcfile));
         
-        generateRDFModel(RDFizeWarcFile(warcfile), "id12");
+        RDFizeWarcFile(warcfile);
         //String warcrdfFile = "/home/panos/Downloads/a374b6db-a50f-4295-9e09-6234b246246fRDFized.rdf";
         //DiachronizationModule conv = new DiachronizationModule();
         //conv.uploadDiachronizeAndStore("test", warcrdfFile, "/home/panos/Downloads/test.rdf", "label", "cre","ontology");

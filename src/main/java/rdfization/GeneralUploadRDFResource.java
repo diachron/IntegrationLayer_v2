@@ -63,7 +63,8 @@ public class GeneralUploadRDFResource
                 @FormDataParam("converterType") String converterType,
                 @FormDataParam("reasoner") String reasoner,
                 @FormDataParam("filters") String filtersString,
-                @FormDataParam("format") String format)
+                @FormDataParam("format") String format,
+                @FormDataParam("versionNumber") String versionNumber)
     {
         FileInputStream fis = null;
         JSONObject jsonOutputMessage = new JSONObject();        
@@ -116,9 +117,12 @@ public class GeneralUploadRDFResource
                 System.err.println(" ---------" + outPath + " " + diachronicURL);                
                 System.err.println(" ---------" + (fis2==null) + " " + diachronicURL);
 
+                /*
                 StoreFactory.createDataLoader().loadData(fis2,
                                             diachronicURL,
                                             format);
+                */
+                StoreFactory.createDataLoader().loadData(fis2, diachronicURL, format, versionNumber);
                 
                 fis2.close();
                 
@@ -132,11 +136,10 @@ public class GeneralUploadRDFResource
                 ArchiveExploiter expl = new ArchiveExploiter(chDet);
                 expl.addDiachronicDataset(diachronicURL, datasetName);
                 //expl.addDiachronicDatasetVersion(diachronicURL, datasetName, null);
-                                
+
+                expl.createArchiveChangeSet(chDet, diachronicURL, null, null, false, datasetName);
                 jsonOutputMessage.put("Status", diachronicURL + " is stored");
                 returnStatus = Response.Status.OK;
-
-             
             }
             else 
             {
@@ -189,7 +192,7 @@ public class GeneralUploadRDFResource
     {
         FileInputStream fis = null;
         String inPath  = new String("/home/panos/Downloads/test/small.rdf");
-            String outPath = new String("/home/panos/Downloads/test/small_efo.rdf.sample");
+        String outPath = new String("/home/panos/Downloads/test/small_efo.rdf.sample2");
         String diachronicURL = null;
         String converterType = new String("multidimensional");
         GeneralUploadRDFResource g = new GeneralUploadRDFResource();
